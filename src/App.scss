@@ -1,0 +1,74 @@
+@import './assets/style/VideoCompressorPage.scss';
+
+body, html {
+  width: 100%;
+  margin: 0%;
+  padding: 0%;
+  height: 100%;
+  color: $black;
+  font-style: normal;
+  background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-position: center center;    
+  font-family: 'Poppins', sans-serif;
+  background-image: linear-gradient(#0c487391, #0c4873), url( ./assets/images/background.jpg);
+
+  zoom: 0.10;
+  zoom: 100%;
+  -moz-transform: scale(0.10, 0.10);
+}
+
+@media(max-width: 600px) { 
+  body {
+    zoom: 0.8;
+    zoom: 80%;
+    -moz-transform: scale(0.8, 0.8);
+  }
+        
+}
+
+.Toastify__toast-container {
+  width: 380px;
+  font-size: 13px;
+  font-weight: 900;
+  
+  .Toastify__toast--info {
+    text-align: center;
+    background:  $gray;
+    color: rgb(199, 199, 199);
+  }
+
+  .Toastify__toast--success {
+    text-align: center;
+    background:  $gray;
+    color: rgb(199, 199, 199);
+  }
+
+  .Toastify__toast--warning {
+    background: $gray;
+    color: rgb(199, 199, 199);
+  }
+
+  .Toastify__toast--error {
+    text-align: center;
+    color: #0c487391;
+    background: rgb(237, 237, 237);
+  }
+
+  .Toastify__close-button--error {
+    color: #0c487391;
+  }
+
+  .Toastify__progress-bar--error {
+    background: #0c487391;
+  }
+        
+}
+
+::-webkit-scrollbar { width: 05px; height: 05px; }
+::-webkit-scrollbar-thumb:hover { background: $blueActive; }
+::-webkit-scrollbar-track { box-shadow: inset 0 0 50px $gray;  }
+::-webkit-scrollbar-thumb { background: $blueActive; border-radius: 50px; }

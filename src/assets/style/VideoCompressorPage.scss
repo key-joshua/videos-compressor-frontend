@@ -1,0 +1,179 @@
+@import './colors.scss';
+
+.videoCompressor-page {
+    .player-container{
+        z-index: 2;
+        width: 45%;
+        height: 20%;
+        float: right;
+        margin-top: 1%;
+        overflow: hidden;
+        margin-right: 3%;
+        position: relative;
+
+        video {
+            z-index: 2;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: inline-block;
+        }
+
+        span {
+            margin: auto auto 2px auto;
+            background-color: $red;
+            border-radius: 100%;
+            text-align: center;
+            font-weight: 900;
+            font-size: 14px;
+            cursor: pointer;
+            color: $white;
+            padding: 3px;
+            float: right;
+            height: 20px;
+            width: 20px;
+        }
+    }
+
+    .content-container {
+        top: 45%;
+        left: 50%;
+        z-index: 1;
+        width: 60%;
+        height: 55%;
+        padding: 00px;
+        overflow: auto;
+        position: fixed;
+        text-align: center;
+        border-radius: 10px;
+        background-color: $grayActive;
+        transform: translate(-50%, -50%);
+        box-shadow: 05px 05px 10px 00px rgba(0, 0, 0, 0.5);
+
+        h1 {
+            font-size: 25px;
+
+            span {
+                color: $blueActive;
+            }
+        }
+
+        .file-input {
+            padding: 5% 0%;
+            text-align: center;
+            border-style: dashed;
+            margin: 2% 10% 2% 10%;
+            border-color: $BlackActive;
+        }
+
+        select {
+            width: 60%;
+            border: none;
+            outline: none;
+            color: $black;
+            font-size: 15px;
+            padding: 15px 08px;
+            border-radius: 05px;
+            margin: 05px auto 50px auto;
+            background: linear-gradient(91.98deg, #0a3f6533 3.69%, #0c48735e 45.18%, #5a8aab6f 80.35%);
+            
+        }
+
+        .button-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            button {
+                width: 20%;
+                border: none;
+                padding: 10px;
+                outline: none;
+                cursor: pointer;
+                font-size: 15px;
+                font-weight: 900;
+                color: $grayActive;
+                margin: 12px auto 20px auto;
+                background: linear-gradient(90deg, #115CA3 0%, #80B4E3 46.16%, #224E76 100%);
+            }
+        }
+    }
+}
+
+@media(max-width: 1400px) {
+    .videoCompressor-page {
+        .content-container {
+            width: 85%;
+            height: 70%;
+
+            select {
+                width: 75%;
+                margin: 30px auto 100px auto;
+            }
+
+            button {
+                width: 45%;
+                margin: 50px auto 00px auto;
+            }
+         }
+    }
+}
+
+@media(max-width: 900px) {
+    .videoCompressor-page {
+        .player-container{
+            z-index: 2;
+            width: 70%;
+            height: 40%;
+        }
+
+        .content-container {
+            width: 85%;
+            height: 70%;
+            
+            h1 {
+                margin: 10% auto;
+            }
+
+            .file-input {
+                margin: 10% 10% 2% 10%;
+            }
+
+            select {
+                width: 75%;
+                margin: 30px auto 80px auto;
+            }
+
+            button {
+                width: 45%;
+                margin: 100px auto 00px auto;
+            }
+         }
+    }
+}
+
+@media(max-width: 400px) {
+    .videoCompressor-page {
+        height: 40%;
+
+        .player-container{
+            z-index: 2;
+            width: 90%;
+            height: 60%;
+        }
+
+        .content-container {
+            width: 95%;
+
+            select {
+                width: 85%;
+                margin: 50px auto 150px auto;
+            }
+
+            button {
+                width: 45%;
+                margin: 130px auto 00px auto;
+            }
+         }
+    }
+}
