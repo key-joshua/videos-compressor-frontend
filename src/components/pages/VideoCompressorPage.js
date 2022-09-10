@@ -12,7 +12,7 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
-const serverAdress = 'http://localhost:3000';
+const serverAdress = 'http://ec2-13-59-149-47.us-east-2.compute.amazonaws.com:3000';
 class VideoCompressorPage extends Component {
   constructor() {
     super();
