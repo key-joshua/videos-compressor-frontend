@@ -12,7 +12,10 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 
-const serverAdress = 'http://ec2-13-59-149-47.us-east-2.compute.amazonaws.com:3000';
+import InstallPage from './InstallPage';
+import { variables } from '../../helper';
+
+const serverAdress = variables.SERVER_PREFIX_URL;
 class VideoCompressorPage extends Component {
   constructor() {
     super();
@@ -26,14 +29,13 @@ class VideoCompressorPage extends Component {
       disableSelect: false,
     };
 
-    this.socket = io(serverAdress);
+    this.socket = io.connect(serverAdress);
   }
 
   componentDidMount() {
     if (!sessionStorage.getItem('userId')) {
       sessionStorage.setItem('userId', Math.random().toString(36).substr(2, 9));
     }
-
     this.socket.emit('userId', sessionStorage.getItem('userId'));
   }
 
@@ -55,11 +57,11 @@ class VideoCompressorPage extends Component {
         setTimeout(() => { window.location.reload(1); }, 4500);
       }
 
-      const formatNumber = /[0123456789]+/;
-      if (formatNumber.test(formatFilename)) {
-        toast.error('Video file name should not contain number');
-        setTimeout(() => { window.location.reload(1); }, 4500);
-      }
+      // const formatNumber = /[0123456789]+/;
+      // if (formatNumber.test(formatFilename)) {
+      //   toast.error('Video file name should not contain number');
+      //   setTimeout(() => { window.location.reload(1); }, 4500);
+      // }
 
       const formatSpace = /\s/;
       if (formatSpace.test(formatFilename)) {
@@ -87,13 +89,35 @@ class VideoCompressorPage extends Component {
     data.append('video', fileData);
     this.setState({ isLoading: true, disableInput: true, disableSelect: true, percentageValue: 2 });
 
-    axios.post(`${serverAdress}/api/video/compress-video/${percentage}`, data)
+    axios.post(`${serverAdress}/api/video/compress-video/${percentage}/${sessionStorage.getItem('userId')}`, data)
       .then((response) => {
-        this.setState({ video: { url: `${serverAdress}/api/video/get-compressed-video/${response.data.data.fileName}/${response.data.data.fileType}`, fileData: { fileName: response.data.data.fileName, fileType: response.data.data.fileType } }, disableVideo: false, percentageValue: 100, isLoading: null });
+        const fileData = { fileName: response.data.data.fileName, fileType: response.data.data.fileType };
+        const url = `${serverAdress}/api/video/get-compressed-video/${fileData.fileType}/${fileData.fileName}`;
+        this.setState({ video: { url, fileData }, disableVideo: false, percentageValue: 100, isLoading: null });
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  handleDownload(key, endpoint, filename) {
+    key.preventDefault();
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', endpoint, true);
+    xhr.responseType = 'blob';
+    xhr.onload = function onload() {
+      const urlCreator = window.URL || window.webkitURL;
+      const videoUrl = urlCreator.createObjectURL(this.response);
+      const tag = document.createElement('a');
+      tag.href = videoUrl;
+      tag.target = '_blank';
+      tag.download = filename;
+      document.body.appendChild(tag);
+      tag.click();
+      document.body.removeChild(tag);
+    };
+    xhr.onerror = (err) => { console.log(err); };
+    xhr.send();
   }
 
   render() {
@@ -102,7 +126,9 @@ class VideoCompressorPage extends Component {
 
     return (
       <div>
+
         <ToastContainer />
+        <InstallPage />
 
         <div className="videoCompressor-page">
 
@@ -139,8 +165,7 @@ class VideoCompressorPage extends Component {
                   ? <button type="button" onClick={(key) => { this.handleCompressVideo(key); }}> Compress </button>
                   : isLoading === true
                     ? <div style={{ width: 70, height: 70 }}> <CircularProgressbar value={percentageValue} text={`${percentageValue}%`} styles={buildStyles({ textSize: '25px' })} /> </div>
-                    : <a href={video.url} download={video.fileData.fileName}> <FontAwesomeIcon icon={faDownload} size="4x" style={{ color: '#002D62' }} /> </a>
-
+                    : <FontAwesomeIcon icon={faDownload} size="4x" style={{ color: '#002D62' }} onClick={(key) => { this.handleDownload(key, video.url, video.fileData.fileName); }} />
               }
             </div>
 

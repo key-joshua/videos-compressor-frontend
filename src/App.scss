@@ -1,4 +1,5 @@
 @import './assets/style/VideoCompressorPage.scss';
+@import './assets/style/InstallPage.scss';
 
 body, html {
   width: 100%;
@@ -14,7 +15,7 @@ body, html {
   -webkit-background-size: cover;
   background-position: center center;    
   font-family: 'Poppins', sans-serif;
-  background-image: linear-gradient(#0c487391, #0c4873), url( ./assets/images/background.jpg);
+  background-image: linear-gradient(#0c48738f, #0c487365), url( ./assets/images/logo.svg);
 
   zoom: 0.10;
   zoom: 100%;
